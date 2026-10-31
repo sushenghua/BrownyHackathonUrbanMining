@@ -1,0 +1,186 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Western Corridor Urban Mining</title>
+<meta name="description" content="Hackathon project: a Council-facing tool that estimates recoverable construction materials from houses before they become waste.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #f6f4ef;
+    --surface: #ffffff;
+    --ink: #1c1f1d;
+    --muted: #5d6460;
+    --line: #e2ded5;
+    --accent: #2f8a6b;
+    --accent-soft: #dcefe7;
+    --warm: #c8682a;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #141716; --surface: #1d2120; --ink: #ecebe6; --muted: #a2a8a4;
+      --line: #2e3432; --accent: #5cc39d; --accent-soft: #1f3a30; --warm: #e08a4f;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #141716; --surface: #1d2120; --ink: #ecebe6; --muted: #a2a8a4;
+    --line: #2e3432; --accent: #5cc39d; --accent-soft: #1f3a30; --warm: #e08a4f;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--bg); color: var(--ink);
+    font: 400 17px/1.6 Inter, system-ui, sans-serif;
+  }
+  .wrap { max-width: 1040px; margin: 0 auto; padding: 0 16px; }
+  header { padding: 72px 0 40px; }
+  .eyebrow {
+    font-size: 13px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase;
+    color: var(--accent);
+  }
+  h1 {
+    font-family: Fraunces, Georgia, serif; font-weight: 700;
+    font-size: clamp(36px, 6vw, 64px); line-height: 1.05; margin: 12px 0 18px;
+  }
+  .lede { font-size: clamp(18px, 2.2vw, 21px); color: var(--muted); max-width: 680px; margin: 0; }
+  .meta { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 24px; }
+  .chip {
+    font-size: 13px; padding: 5px 12px; border-radius: 999px;
+    background: var(--surface); border: 1px solid var(--line); color: var(--muted);
+  }
+  .video {
+    border-radius: 14px; overflow: hidden; border: 1px solid var(--line);
+    background: #000; box-shadow: 0 20px 50px -25px rgba(0,0,0,.35);
+  }
+  .video video { display: block; width: 100%; height: auto; }
+  .caption { font-size: 14px; color: var(--muted); margin-top: 10px; }
+  section { padding: 56px 0 0; }
+  h2 {
+    font-family: Fraunces, Georgia, serif; font-weight: 500;
+    font-size: clamp(26px, 3.5vw, 34px); margin: 0 0 20px;
+  }
+  .grid { display: grid; gap: 16px; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); }
+  .card {
+    background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 22px 22px 20px;
+  }
+  .card h3 { margin: 0 0 8px; font-size: 17px; font-weight: 600; }
+  .card p { margin: 0; color: var(--muted); font-size: 15.5px; }
+  .tag { display: inline-block; font-size: 12px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; margin-bottom: 10px; }
+  .tag.problem { color: var(--warm); }
+  .tag.solution { color: var(--accent); }
+  .split { display: grid; gap: 16px; grid-template-columns: 1fr 1fr; }
+  @media (max-width: 720px) { .split { grid-template-columns: 1fr; } header { padding-top: 48px; } }
+  .big { font-size: 16.5px; color: var(--ink); }
+  ul.clean { margin: 12px 0 0; padding-left: 18px; color: var(--muted); font-size: 15.5px; }
+  ul.clean li { margin: 4px 0; }
+  .steps { counter-reset: s; display: grid; gap: 12px; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); }
+  .step { position: relative; padding-top: 44px; }
+  .step::before {
+    counter-increment: s; content: counter(s);
+    position: absolute; top: 18px; left: 22px; width: 26px; height: 26px; border-radius: 50%;
+    background: var(--accent-soft); color: var(--accent); font-weight: 600; font-size: 14px;
+    display: grid; place-items: center;
+  }
+  .stack { display: flex; flex-wrap: wrap; gap: 8px; }
+  .stack span {
+    font-size: 14px; padding: 6px 12px; border-radius: 8px;
+    background: var(--accent-soft); color: var(--ink);
+  }
+  footer { padding: 64px 0 48px; color: var(--muted); font-size: 14px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <div class="eyebrow">Auckland CivicTech Hackathon · October 2026</div>
+    <h1>Western Corridor Urban Mining</h1>
+    <p class="lede">A Council-facing tool that shows how much building material could be recovered from houses along Auckland's Western Rail Corridor, and what it's worth, before those houses become waste.</p>
+    <div class="meta">
+      <span class="chip">Challenge: Waste · Construction &amp; demolition materials</span>
+      <span class="chip">Built in one day</span>
+      <span class="chip">Team of 6</span>
+    </div>
+  </header>
+
+  <div class="video">
+    <video controls playsinline preload="metadata" poster="assets/poster.jpg">
+      <source src="assets/demo.mp4" type="video/mp4">
+      Your browser can't play this video. <a href="assets/demo.mp4">Download the demo</a>.
+    </video>
+  </div>
+  <p class="caption">Demo walkthrough (1:36): filtering by area, zooming to the house level, and browsing materials and price sources.</p>
+
+  <section>
+    <h2>The problem</h2>
+    <div class="split">
+      <div class="card">
+        <span class="tag problem">Hidden value</span>
+        <p class="big">Auckland's houses hold large amounts of reusable timber, roofing, bricks, metals, doors and windows. But nobody can see how much exists or where it is, so most of it ends up as demolition waste.</p>
+      </div>
+      <div class="card">
+        <span class="tag problem">Wrong scale</span>
+        <p class="big">Recovery is usually judged house by house. As the city plans to intensify around rail stations, Council and industry need a neighbourhood- and corridor-level view to make the case for deconstruction over demolition.</p>
+      </div>
+    </div>
+    <ul class="clean">
+      <li>There was no existing tool that looks at this.</li>
+      <li>Other cities (Amsterdam, Vienna, Singapore) already map their "urban mines" to forecast future waste.</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Our solution</h2>
+    <div class="split" style="margin-bottom:16px">
+      <div class="card">
+        <span class="tag solution">Materials Explorer</span>
+        <p>An interactive map of the corridor. Pick a station catchment, local board or ward and see expected recoverable materials by type, split into what can be reused and what can be recycled, with an indicative market value. Zoom in to inspect any single house.</p>
+      </div>
+      <div class="card">
+        <span class="tag solution">Open API</span>
+        <p>Every number in the interface is also available as JSON or GeoJSON, so Council and recovery operators can use the results in their own tools.</p>
+      </div>
+    </div>
+
+    <h3 style="font-size:17px;margin:28px 0 12px">How it works</h3>
+    <div class="steps">
+      <div class="card step"><h3>Map the buildings</h3><p>Start from public building footprints and keep low-rise houses in the corridor.</p></div>
+      <div class="card step"><h3>Estimate materials</h3><p>Apply recovery rates from real Auckland deconstruction projects, per square metre of floor area.</p></div>
+      <div class="card step"><h3>Group by area</h3><p>Roll houses up into station catchments, local boards and wards, without double counting.</p></div>
+      <div class="card step"><h3>Put a value on it</h3><p>Multiply tonnes by editable, sourced market prices, with stale prices flagged in the app.</p></div>
+    </div>
+
+    <h3 style="font-size:17px;margin:28px 0 12px">Who it's for</h3>
+    <div class="grid">
+      <div class="card"><h3>Council waste &amp; planning teams</h3><p>Size the opportunity and plan for future recovery.</p></div>
+      <div class="card"><h3>Waste &amp; recovery operators</h3><p>Understand the market for recovered materials, neighbourhood by neighbourhood.</p></div>
+      <div class="card"><h3>Designers &amp; builders</h3><p>See what salvaged materials could become available nearby.</p></div>
+    </div>
+
+    <p class="caption" style="margin-top:18px">This is a one-day proof of concept: figures assume every house is deconstructed (it is not a demolition forecast), and prices are placeholders.</p>
+  </section>
+
+  <section>
+    <h2>Built with</h2>
+    <div class="stack">
+      <span>Next.js</span><span>TypeScript</span><span>Tailwind CSS</span><span>MapLibre</span>
+      <span>FastAPI</span><span>Python</span><span>PostgreSQL + PostGIS</span><span>Docker</span>
+    </div>
+  </section>
+
+  <section>
+    <h2>My role</h2>
+    <div class="card">
+      <p class="big">I worked as a <strong>full-stack developer</strong> in a team of 6.</p>
+    </div>
+  </section>
+
+  <footer>
+    Built at the Auckland CivicTech Hackathon, 16 October 2026.
+  </footer>
+</div>
+
+</body>
+</html>
